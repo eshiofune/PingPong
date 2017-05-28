@@ -1,0 +1,154 @@
+#:kivy 1.9.1
+
+<PongBall>:
+    size: 50, 50 
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size          
+
+<PongPaddle>:
+    size: 25, 200
+    canvas:
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+<PongGame>:
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+    left_label: left_label
+    right_label: right_label    
+    canvas:
+        Rectangle:
+            pos: self.center_x-5, 0
+            size: 10, self.height
+    Label:	
+        font_size: 70  
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+        id: left_label
+    Label:
+        font_size: 70
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+        id: right_label
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y     
+    PongPaddle:
+        id: player_right
+        x: root.width - self.width
+        center_y: root.center_y        
+
+
+<MainScreen>:
+
+<GameScreen>:
+
+<SettingsScreen>:
+    ai_difficulty: ai_difficulty
+    ball_speed: ball_speed
+    player_num: player_num
+    player_left: player_left
+    player_right: player_right
+    txt_score_limit: txt_score_limit
+    GridLayout:
+        cols: 4
+        Label:
+        Label:
+            text: "Left-Player's name"
+        TextInput:
+            id: player_left
+            text: "Computer"
+        Label:
+        Label:
+        Label:
+            text: "Right-Player's name"
+        TextInput:
+            id: player_right
+            text: "Player"
+        Label:
+        Label:
+        Label:
+            text: "Initial ball speed"
+        TextInput:
+            id: ball_speed
+            text: "4"
+        Label:
+        Label:
+        Label:
+            text: "Score Limit"
+        TextInput:
+            id: txt_score_limit
+            text: "1"
+        Label:
+        Label:
+        Label:
+            text: "Number Of Players"
+        TextInput:
+            id: player_num
+            text: "1"
+        Label:
+        Label:
+        Label:        
+            text: "AI Difficulty"
+        TextInput:
+            id: ai_difficulty
+            text: "Easy"
+        Label:
+        Label:
+        Button:
+            text: "Reset"
+            on_release: root.reset()
+        Button:
+            text: "OK"
+            on_release: root.save()
+
+<GameOverScreen>:
+
+<HelpScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+            Label:
+                text: root.help_text
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+            Button:
+                text: 'Home'
+                on_release: root.home
+            Label:
+   
+<ScreenManagement>:
+    name: 'screen_manager'
+    main_screen: main_screen
+    game_screen: game_screen
+    settings_screen: settings_screen
+    game_over_screen: game_over_screen
+    help_screen: help_screen
+    MainScreen:
+        id: main_screen
+        name: 'main_screen'
+    GameScreen:
+        id: game_screen
+        name: 'game_screen'
+    SettingsScreen:
+        id: settings_screen
+        name: 'settings_screen'
+    GameOverScreen:
+        id: game_over_screen
+        name: 'game_over_screen'
+    HelpScreen:
+        id: help_screen
+        name: 'help_screen'
